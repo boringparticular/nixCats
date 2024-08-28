@@ -970,6 +970,8 @@ require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
 
             require('mini.cursorword').setup()
             require('mini.files').setup()
+            require('mini.sessions').setup()
+            require('mini.visits').setup()
 
             -- Simple and easy statusline.
             --  You could remove this setup call if you don't like it,
