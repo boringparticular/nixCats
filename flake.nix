@@ -20,9 +20,25 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim?dir=nix";
 
-    # neovim-nightly-overlay = {
-    #   url = "github:nix-community/neovim-nightly-overlay";
-    # };
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+    };
+
+    neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
+
+    sg-nvim = {
+      url = "github:sourcegraph/sg.nvim";
+    };
+
+    plugins-render-markdown = {
+      url = "github:MeanderingProgrammer/markdown.nvim";
+      flake = false;
+    };
+
+    plugins-large-file = {
+      url = "github:mireq/large_file";
+      flake = false;
+    };
 
     # see :help nixCats.flake.inputs
     # If you want your plugin to be loaded by the standard overlay,
@@ -51,7 +67,7 @@
     # will not apply to module imports
     # as that will have your system values
     extra_pkg_config = {
-      # allowUnfree = true;
+      allowUnfree = true;
     };
     # sometimes our overlays require a ${system} to access the overlay.
     # management of this variable is one of the harder parts of using flakes.
@@ -78,6 +94,9 @@
             # Once we add this overlay to our nixpkgs, we are able to
             # use `pkgs.neovimPlugins`, which is a set of our plugins.
             (utils.standardPluginOverlay inputs)
+
+            inputs.neovim-nightly-overlay.overlays.default
+            inputs.neorg-overlay.overlays.default
             # add any flake overlays here.
           ];
         # these overlays will be wrapped with ${system}
@@ -125,6 +144,12 @@
           lua-language-server
           nixd
           stylua
+          luarocks
+        ];
+        notes = [
+        ];
+        ai = [
+          inputs.sg-nvim.packages.${pkgs.system}.default
         ];
         kickstart-debug = [
           delve
@@ -137,6 +162,9 @@
       # This is for plugins that will load at startup without using packadd:
       startupPlugins = with pkgs.vimPlugins; {
         general = [
+          pkgs.neovimPlugins.large-file
+          pkgs.neovimPlugins.render-markdown
+          inputs.sg-nvim.packages.${pkgs.system}.sg-nvim
           vim-sleuth
           lazy-nvim
           comment-nvim
@@ -156,10 +184,28 @@
           cmp_luasnip
           cmp-nvim-lsp
           cmp-path
+          cmp-nvim-lua
+          cmp-nvim-lsp-signature-help
+          cmp-nvim-lsp-document-symbol
+          cmp-cmdline
+          cmp-buffer
+          cmp-treesitter
           todo-comments-nvim
-          mini-nvim
           undotree
           oil-nvim
+          emmet-vim
+          direnv-vim
+          nvim-notify
+          lspkind-nvim
+          # sg-nvim # breaks with rust 1.80
+          neorg
+          neorg-telescope
+          harpoon2
+          catppuccin-nvim
+          nvim-colorizer-lua
+          rainbow-delimiters-nvim
+          nvim-treesitter-textobjects
+          nvim-ts-context-commentstring
           nvim-treesitter-context
           nvim-treesitter-refactor
           nvim-treesitter.withAllGrammars
@@ -170,6 +216,9 @@
           #     lua
           #   ]
           # ))
+        ];
+        boring-mini = [
+          mini-nvim
         ];
         kickstart-debug = [
           nvim-dap
@@ -264,6 +313,7 @@
           # your alias may not conflict with your other packages.
           aliases = ["vim"];
           # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+          withNodeJs = true;
         };
         # and a set of categories that you want
         # (and other information to pass to lua)
@@ -272,6 +322,11 @@
           gitPlugins = true;
           customPlugins = true;
           test = true;
+
+          go = true;
+          ai = true;
+          notes = true;
+          boring-mini = true;
 
           kickstart-autopairs = false;
           kickstart-neo-tree = false;

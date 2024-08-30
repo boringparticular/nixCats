@@ -1,3 +1,4 @@
+require('boring')
 -- NOTE: NIXCATS USERS:
 -- NOTE: there are also notes added as a tutorial of how to use the nixCats lazy wrapper.
 -- you can search for the following string in order to find them:
@@ -8,117 +9,6 @@
 -- so that it doesnt throw an error if you didnt install via nix.
 -- usage of both this setup and the nixCats command is optional,
 -- but it is very useful for passing info from nix to lua so you will likely use it at least once.
-require('nixCatsUtils').setup({
-    non_nix_value = true,
-})
-
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
-vim.g.have_nerd_font = nixCats('have_nerd_font')
-
-vim.opt.fileformat = 'unix'
-
-vim.opt.number = true
-vim.opt.relativenumber = true
-
-vim.opt.cmdheight = 2
-
-vim.opt.mouse = 'a'
-
-vim.opt.showmode = false
-
--- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.schedule(function()
-    vim.opt.clipboard = 'unnamedplus'
-end)
-
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.smartindent = true
-vim.opt.breakindent = true
-
-vim.opt.history = 1000
-vim.opt.undofile = true
-vim.opt.swapfile = false
-
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
-vim.opt.signcolumn = 'yes'
-
-vim.opt.updatetime = 250
-
-vim.opt.timeoutlen = 300
-
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-
-vim.opt.list = true
-vim.opt.listchars = {
-    trail = '·',
-    nbsp = '␣',
-    space = '⋅',
-    tab = '•••',
-    eol = '↴',
-}
-
-vim.opt.inccommand = 'split'
-
-vim.opt.cursorline = true
-vim.opt.cursorcolumn = true
-
-vim.opt.scrolloff = 10
-vim.opt.sidescrolloff = 5
-
-vim.opt.foldenable = true
-vim.opt.foldcolumn = 'auto'
-vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
--- vim.opt.foldlevel = 3
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 99
-vim.opt.fillchars = {
-    eob = ' ',
-    fold = ' ',
-    foldopen = '',
-    foldsep = ' ',
-    foldclose = '',
-}
-vim.opt.statuscolumn = '%=%{v:relnum?v:relnum:v:lnum} %s%C '
-vim.opt.conceallevel = 2
-
-vim.opt.hlsearch = true
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-
-vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
-
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
-vim.keymap.set('n', 'n', 'nzzzv', { desc = 'Move to next search result and center line' })
-vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Move to previous search result and center line' })
-
-vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll half page down and center line' })
-vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll half page up and center line' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -128,7 +18,7 @@ vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll half page up and center
 --  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Highlight when yanking (copying) text',
-    group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+    group = vim.api.nvim_create_augroup('boring-highlight-yank', { clear = true }),
     callback = function()
         vim.highlight.on_yank()
     end,
@@ -196,6 +86,18 @@ require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
     'tpope/vim-sleuth',
     'direnv/direnv.vim',
     'https://gitlab.com/HiPhish/rainbow-delimiters.nvim',
+    'mireq/large_file',
+    {
+        'MeanderingProgrammer/render-markdown.nvim',
+        name = 'render-markdown',
+        config = function()
+            require('render-markdown').setup({})
+        end,
+        ft = 'markdown',
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    },
     -- NOTE: nixCats: nix downloads it with a different file name.
     -- tell lazy about that.
     { 'numToStr/Comment.nvim', name = 'comment.nvim', opts = {} },
@@ -732,6 +634,10 @@ require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
                 default_model = 'anthropic/claude-3-5-sonnet-20240620',
             },
         },
+        config = function(_, opts)
+            require('sg').setup(opts)
+            vim.keymap.set('n', '<leader>cc', '<cmd>CodyToggle<CR>', { desc = '[C]ody [C]hat' })
+        end,
     },
     {
         'supermaven-inc/supermaven-nvim',
@@ -860,6 +766,8 @@ require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
                     { name = 'cody' },
                     { name = 'nvim_lsp' },
                     { name = 'nvim_lsp_signature_help' },
+                    { name = 'nvim_lsp_document_symbol' },
+                    { name = 'neorg' },
                     { max_item_count = 5, name = 'luasnip' },
                     { name = 'nvim_lua' },
                     { max_item_count = 5, name = 'buffer' },
@@ -918,9 +826,6 @@ require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
         priority = 1000, -- Make sure to load this before all the other start plugins.
         init = function()
             vim.cmd.colorscheme('catppuccin')
-
-            -- You can configure highlights by doing something like:
-            vim.cmd.hi('Comment gui=none')
         end,
         opts = {
             flavour = 'mocha',
@@ -947,52 +852,8 @@ require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
         },
     },
 
-    -- Highlight todo, notes, etc in comments
     { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = true } },
-
     {
-        'echasnovski/mini.nvim',
-        config = function()
-            -- Better Around/Inside textobjects
-            --
-            -- Examples:
-            --  - va)  - [V]isually select [A]round [)]paren
-            --  - yinq - [Y]ank [I]nside [N]ext [']quote
-            --  - ci'  - [C]hange [I]nside [']quote
-            require('mini.ai').setup({ n_lines = 500 })
-
-            -- Add/delete/replace surroundings (brackets, quotes, etc.)
-            --
-            -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-            -- - sd'   - [S]urround [D]elete [']quotes
-            -- - sr)'  - [S]urround [R]eplace [)] [']
-            require('mini.surround').setup()
-
-            require('mini.cursorword').setup()
-            require('mini.files').setup()
-            require('mini.sessions').setup()
-            require('mini.visits').setup()
-
-            -- Simple and easy statusline.
-            --  You could remove this setup call if you don't like it,
-            --  and try some other statusline plugin
-            local statusline = require('mini.statusline')
-            -- set use_icons to true if you have a Nerd Font
-            statusline.setup({ use_icons = vim.g.have_nerd_font })
-
-            -- You can configure sections in the statusline by overriding their
-            -- default behavior. For example, here we set the section for
-            -- cursor location to LINE:COLUMN
-            ---@diagnostic disable-next-line: duplicate-set-field
-            statusline.section_location = function()
-                return '%2l:%-2v'
-            end
-
-            -- ... and there is more!
-            --  Check out: https://github.com/echasnovski/mini.nvim
-        end,
-    },
-    { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
         build = require('nixCatsUtils').lazyAdd(':TSUpdate'),
         opts = {
@@ -1078,12 +939,31 @@ require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
     },
     {
         'nvim-neorg/neorg',
+        enabled = require('nixCatsUtils').enableForCategory('notes'),
         lazy = false,
         version = '*',
-        config = true,
+        opts = {
+            load = {
+                ['core.defaults'] = {},
+                ['core.concealer'] = {},
+                ['core.completion'] = {
+                    engine = 'nvim-cmp',
+                    name = '[Neorg]',
+                },
+                ['core.dirman'] = {
+                    config = {
+                        workspaces = {
+                            notes = '~/Nextcloud/notes',
+                        },
+                        default_workspace = 'notes',
+                    },
+                },
+            },
+        },
     },
     {
         'ray-x/go.nvim',
+        enabled = require('nixCatsUtils').enableForCategory('go'),
         dependencies = { -- optional packages
             'ray-x/guihua.lua',
             'neovim/nvim-lspconfig',
