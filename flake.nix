@@ -203,7 +203,9 @@
           harpoon2
           catppuccin-nvim
           nvim-colorizer-lua
+          trouble-nvim
           rainbow-delimiters-nvim
+          noice-nvim
           nvim-treesitter-textobjects
           nvim-ts-context-commentstring
           nvim-treesitter-context
