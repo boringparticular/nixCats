@@ -293,6 +293,9 @@
       };
       # populates $LUA_PATH and $LUA_CPATH
       extraLuaPackages = {
+        notes = [
+          (lp: with lp; [lua-utils-nvim])
+        ];
         test = [(_: [])];
       };
     };
