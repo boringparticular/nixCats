@@ -83,6 +83,7 @@ local lazyOptions = {
 -- NOTE: nixCats: this the lazy wrapper.
 require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
     'mattn/emmet-vim',
+    'mattn/emmet-vim',
     'tpope/vim-sleuth',
     'direnv/direnv.vim',
     'https://gitlab.com/HiPhish/rainbow-delimiters.nvim',
@@ -641,6 +642,7 @@ require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
     },
     {
         'supermaven-inc/supermaven-nvim',
+        event = 'InsertEnter',
         opts = {
             disable_keymaps = true,
             disable_inline_completion = true,
@@ -1011,7 +1013,8 @@ require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
         enabled = require('nixCatsUtils').enableForCategory('notes'),
         lazy = false,
         version = '*',
-        opts = {
+        config = true,
+        --[[ opts = {
             load = {
                 ['core.defaults'] = {},
                 ['core.concealer'] = {},
@@ -1028,7 +1031,7 @@ require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
                     },
                 },
             },
-        },
+        }, ]]
     },
     {
         'ray-x/go.nvim',

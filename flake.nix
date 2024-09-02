@@ -309,15 +309,44 @@
     packageDefinitions = {
       # These are the names of your packages
       # you can include as many as you wish.
+      miniNvim = {pkgs, ...}: {
+        settings = {
+          wrapRc = true;
+        };
+        categories = {};
+      };
+      minimalNvim = {pkgs, ...}: {
+        settings = {
+          wrapRc = true;
+        };
+        categories = {};
+      };
+      serverNvim = {pkgs, ...}: {
+        settings = {
+          wrapRc = true;
+        };
+        categories = {
+          general = true;
+          gitPlugins = false;
+          customPlugins = false;
+          test = false;
+          go = false;
+          ai = false;
+          notes = false;
+        };
+      };
       nvim = {pkgs, ...}: {
         # they contain a settings set defined above
         # see :help nixCats.flake.outputs.settings
         settings = {
           wrapRc = true;
+          # unwrappedCfgPath = "/home/kmies/.config/nvim";
+          # nvimSRC = inputs.neovim-src;
+          # neovim-unwrapped = pkgs.internalvim.nvim;
+          neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
           # IMPORTANT:
           # your alias may not conflict with your other packages.
           aliases = ["vim"];
-          # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
           withNodeJs = true;
         };
         # and a set of categories that you want
@@ -333,8 +362,6 @@
           notes = true;
           boring-mini = true;
 
-          kickstart-autopairs = false;
-          kickstart-neo-tree = false;
           kickstart-debug = true;
           kickstart-lint = true;
           kickstart-indent_line = true;
