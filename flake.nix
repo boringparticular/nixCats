@@ -164,6 +164,8 @@
         general = [
           pkgs.neovimPlugins.large-file
           pkgs.neovimPlugins.render-markdown
+          markdown-preview-nvim
+          obsidian-nvim
           inputs.sg-nvim.packages.${pkgs.system}.sg-nvim
           vim-sleuth
           lazy-nvim

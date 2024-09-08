@@ -82,6 +82,32 @@ local lazyOptions = {
 -- NOTE: Here is where you install your plugins.
 -- NOTE: nixCats: this the lazy wrapper.
 require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
+    {
+        'ray-x/lsp_signature.nvim',
+        enabled = false,
+        event = 'VeryLazy',
+        opts = {},
+        config = function(_, opts)
+            require('lsp_signature').setup(opts)
+
+            vim.api.nvim_create_autocmd('LspAttach', {
+                callback = function(args)
+                    local bufnr = args.buf
+                    local client = vim.lsp.get_client_by_id(args.data.client_id)
+                    if vim.tbl_contains({ 'null-ls' }, client.name) then -- blacklist lsp
+                        return
+                    end
+                    require('lsp_signature').on_attach({
+                        -- ... setup options here ...
+                        bind = true, -- This is mandatory, otherwise border config won't get registered.
+                        handler_opts = {
+                            border = 'rounded',
+                        },
+                    }, bufnr)
+                end,
+            })
+        end,
+    },
     'mattn/emmet-vim',
     'mattn/emmet-vim',
     'tpope/vim-sleuth',
@@ -89,15 +115,53 @@ require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
     'https://gitlab.com/HiPhish/rainbow-delimiters.nvim',
     'mireq/large_file',
     {
+        'epwalsh/obsidian.nvim',
+        version = '*', -- recommended, use latest release instead of latest commit
+        lazy = true,
+        ft = 'markdown',
+        -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+        -- event = {
+        --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+        --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
+        --   -- refer to `:h file-pattern` for more examples
+        --   "BufReadPre path/to/my-vault/*.md",
+        --   "BufNewFile path/to/my-vault/*.md",
+        -- },
+        dependencies = {
+            -- Required.
+            'nvim-lua/plenary.nvim',
+
+            -- see below for full list of optional dependencies 👇
+        },
+        opts = {
+            workspaces = {
+                {
+                    name = 'personal',
+                    path = '~/Nextcloud/obsidian',
+                },
+            },
+
+            -- see below for full list of options 👇
+        },
+    },
+    {
+        'iamcco/markdown-preview.nvim',
+        cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+        ft = { 'markdown' },
+        build = function()
+            vim.fn['mkdp#util#install']()
+        end,
+    },
+    {
         'MeanderingProgrammer/render-markdown.nvim',
         name = 'render-markdown',
         config = function()
             require('render-markdown').setup({})
         end,
         ft = 'markdown',
-        dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
         -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
-        -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
     },
     -- NOTE: nixCats: nix downloads it with a different file name.
     -- tell lazy about that.
@@ -1011,7 +1075,8 @@ require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
     {
         'nvim-neorg/neorg',
         enabled = require('nixCatsUtils').enableForCategory('notes'),
-        lazy = false,
+        lazy = true,
+        ft = 'neorg',
         version = '*',
         config = true,
         --[[ opts = {
