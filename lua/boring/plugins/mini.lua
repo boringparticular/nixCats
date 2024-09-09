@@ -43,7 +43,7 @@ return {
             --  Check out: https://github.com/echasnovski/mini.nvim
         end,
     },
-    {
+    --[[ {
         'echasnovski/mini.nvim',
         enabled = require('nixCatsUtils').enableForCategory('mini'),
         config = function()
@@ -85,5 +85,5 @@ return {
             -- ... and there is more!
             --  Check out: https://github.com/echasnovski/mini.nvim
         end,
-    },
+    }, ]]
 }
