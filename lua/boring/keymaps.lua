@@ -23,3 +23,5 @@ vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Move to previous search result and c
 
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll half page down and center line' })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll half page up and center line' })
+
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })

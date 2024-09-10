@@ -9,7 +9,7 @@
 return {
     'mfussenegger/nvim-dap',
     -- NOTE: nixCats: return true only if category is enabled, else false
-    enabled = require('nixCatsUtils').enableForCategory('kickstart-debug'),
+    enabled = require('nixCatsUtils').enableForCategory('debug'),
     dependencies = {
         -- Creates a beautiful debugger UI
         'rcarriga/nvim-dap-ui',
@@ -23,7 +23,7 @@ return {
         { 'jay-babu/mason-nvim-dap.nvim', enabled = require('nixCatsUtils').lazyAdd(true, false) },
 
         -- Add your own debuggers here
-        'leoluz/nvim-dap-go',
+        { 'leoluz/nvim-dap-go', enabled = require('nixCatsUtils').enableForCategory('go') },
     },
     config = function()
         local dap = require('dap')
@@ -88,13 +88,15 @@ return {
         dap.listeners.before.event_terminated['dapui_config'] = dapui.close
         dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
-        -- Install golang specific config
-        require('dap-go').setup({
-            delve = {
-                -- On Windows delve must be run attached or it crashes.
-                -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
-                detached = vim.fn.has('win32') == 0,
-            },
-        })
+        if require('nixCatsUtils').enableForCategory('go') then
+            -- Install golang specific config
+            require('dap-go').setup({
+                delve = {
+                    -- On Windows delve must be run attached or it crashes.
+                    -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
+                    detached = vim.fn.has('win32') == 0,
+                },
+            })
+        end
     end,
 }

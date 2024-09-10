@@ -769,6 +769,22 @@
         "type": "github"
       }
     },
+    "plugins-go-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1725849058,
+        "narHash": "sha256-MpiAU45FcDdrnI4ZSgIFvOjhqBaNsqmzRCliMBP92EY=",
+        "owner": "ray-x",
+        "repo": "go.nvim",
+        "rev": "841be1c3702c24de677955ca05f2de460484959f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ray-x",
+        "repo": "go.nvim",
+        "type": "github"
+      }
+    },
     "plugins-large-file": {
       "flake": false,
       "locked": {
@@ -829,6 +845,7 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixCats": "nixCats",
         "nixpkgs": "nixpkgs_5",
+        "plugins-go-nvim": "plugins-go-nvim",
         "plugins-large-file": "plugins-large-file",
         "plugins-render-markdown": "plugins-render-markdown",
         "sg-nvim": "sg-nvim"
