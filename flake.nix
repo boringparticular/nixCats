@@ -149,10 +149,10 @@
           lua-language-server
           nixd
           stylua
-          luarocks
         ];
 
         notes = [
+          luarocks
         ];
 
         ai = [
