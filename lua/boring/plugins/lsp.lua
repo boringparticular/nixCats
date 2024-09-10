@@ -24,8 +24,6 @@ return {
                 enabled = require('nixCatsUtils').lazyAdd(true, false),
             },
 
-            -- Useful status updates for LSP.
-            -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
             { 'j-hui/fidget.nvim', opts = {}, enabled = require('nixCatsUtils').enableForCategory('devtools') },
 
             -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
