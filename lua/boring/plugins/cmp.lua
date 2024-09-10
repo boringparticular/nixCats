@@ -21,7 +21,7 @@ return {
                 dependencies = {
                     {
                         'rafamadriz/friendly-snippets',
-                        enabled = require('nixCatsUtils').enableForCategory('extra')
+                        enabled = require('nixCatsUtils').enableForCategory('extra'),
                         config = function()
                             require('luasnip.loaders.from_vscode').lazy_load()
                         end,
