@@ -358,6 +358,7 @@
       extra = true;
       devtools = true;
       webdev = true;
+      python = true;
       mini.extra = true;
       mini.optional = false;
 

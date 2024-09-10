@@ -158,22 +158,23 @@ return {
             -- NOTE: nixCats: there is help in nixCats for lsps at `:h nixCats.LSPs` and also `:h nixCats.luaUtils`
             local servers = {}
             servers.clangd = {}
-            servers.gopls = {}
-            servers.pyright = {}
-            servers.html = {}
-            servers.htmx = {}
-            servers.templ = {}
-            servers.svelte = {}
-            servers.tailwindcss = {}
-            -- servers.rust_analyzer = {},
-            -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-            --
-            -- Some languages (like typescript) have entire language plugins that can be useful:
-            --    https://github.com/pmizio/typescript-tools.nvim
-            --
-            -- But for many setups, the LSP (`tsserver`) will work just fine
-            servers.tsserver = {}
-            --
+
+            if nixCats('go') then
+                servers.gopls = {}
+                servers.templ = {}
+            end
+
+            if nixCats('python') then
+                servers.pyright = {}
+            end
+
+            if nixCats('webdev') then
+                servers.html = {}
+                servers.htmx = {}
+                servers.svelte = {}
+                servers.tailwindcss = {}
+                servers.tsserver = {}
+            end
 
             -- NOTE: nixCats: nixd is not available on mason.
             if require('nixCatsUtils').isNixCats then
