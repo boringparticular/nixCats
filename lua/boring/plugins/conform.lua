@@ -1,6 +1,7 @@
 return {
     { -- Autoformat
         'stevearc/conform.nvim',
+        enabled = require('nixCatsUtils').enableForCategory('general'),
         event = { 'BufWritePre' },
         cmd = { 'ConformInfo' },
         keys = {

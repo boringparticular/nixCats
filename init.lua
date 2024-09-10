@@ -47,8 +47,8 @@ local lazyOptions = {
 require('nixCatsUtils.lazyCat').setup(pluginList, nixLazyPath, {
     -- NOTE: nixCats: nix downloads it with a different file name.
     -- tell lazy about that.
-    { 'numToStr/Comment.nvim', name = 'comment.nvim', opts = {} },
-    'tpope/vim-sleuth',
+    { 'numToStr/Comment.nvim', name = 'comment.nvim', opts = {}, enabled = require('nixCatsUtils').enableForCategory('general') },
+    { 'tpope/vim-sleuth', enabled = require('nixCatsUtils').enableForCategory('general') },
 
     { 'mattn/emmet-vim', enabled = require('nixCatsUtils').enableForCategory('webdev') },
     { 'mireq/large_file', enabled = require('nixCatsUtils').enableForCategory('extra') },

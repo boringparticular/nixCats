@@ -1,6 +1,7 @@
 return {
     {
         'folke/flash.nvim',
+        enabled = require('nixCatsUtils').enableForCategory('general'),
         event = 'VeryLazy',
         -- -@type Flash.Config
         opts = {},

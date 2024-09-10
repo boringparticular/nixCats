@@ -1,11 +1,13 @@
 return {
     { -- Autocompletion
         'hrsh7th/nvim-cmp',
+        enabled = require('nixCatsUtils').enableForCategory('general'),
         event = 'InsertEnter',
         dependencies = {
             -- Snippet Engine & its associated nvim-cmp source
             {
                 'L3MON4D3/LuaSnip',
+                enabled = require('nixCatsUtils').enableForCategory('general'),
                 -- NOTE: nixCats: nix downloads it with a different file name.
                 -- tell lazy about that.
                 name = 'luasnip',
@@ -28,20 +30,19 @@ return {
                     },
                 },
             },
-            'onsails/lspkind.nvim',
-            'saadparwaiz1/cmp_luasnip',
-
             -- Adds other completion capabilities.
             --  nvim-cmp does not ship with all sources by default. They are split
             --  into multiple repos for maintenance purposes.
+            { 'onsails/lspkind.nvim', enabled = require('nixCatsUtils').enableForCategory('general') },
+            { 'saadparwaiz1/cmp_luasnip', enabled = require('nixCatsUtils').enableForCategory('general') },
             { 'hrsh7th/cmp-nvim-lsp', enabled = require('nixCatsUtils').enableForCategory('devtools') },
-            'hrsh7th/cmp-path',
-            'hrsh7th/cmp-cmdline',
-            'hrsh7th/cmp-buffer',
+            { 'hrsh7th/cmp-path', enabled = require('nixCatsUtils').enableForCategory('general') },
+            { 'hrsh7th/cmp-cmdline', enabled = require('nixCatsUtils').enableForCategory('general') },
+            { 'hrsh7th/cmp-buffer', enabled = require('nixCatsUtils').enableForCategory('general') },
             { 'hrsh7th/cmp-nvim-lsp-document-symbol', enabled = require('nixCatsUtils').enableForCategory('devtools') },
             { 'hrsh7th/cmp-nvim-lsp-signature-help', enabled = require('nixCatsUtils').enableForCategory('devtools') },
             { 'hrsh7th/cmp-nvim-lua', enabled = require('nixCatsUtils').enableForCategory('devtools') },
-            'ray-x/cmp-treesitter',
+            { 'ray-x/cmp-treesitter', enabled = require('nixCatsUtils').enableForCategory('devtools') },
         },
         config = function()
             -- See `:help cmp`
