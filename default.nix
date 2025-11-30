@@ -204,7 +204,9 @@ let
       };
 
       python3.libraries = {
-        test = _: [ ];
+        python = ps: [
+          ps.ruff
+        ];
       };
 
       extraLuaPackages = {
