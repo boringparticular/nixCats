@@ -98,21 +98,44 @@ _G.Config.new_autocmd('FileType', nil, f, "Proper 'formatoptions'")
 
 -- Diagnostics ================================================================
 
+local icons = require('boring.icons')
+
 -- Neovim has built-in support for showing diagnostic messages. This configures
 -- a more conservative display while still being useful.
 -- See `:h vim.diagnostic` and `:h vim.diagnostic.config()`.
 local diagnostic_opts = {
     -- Show signs on top of any other sign, but only for warnings and errors
-    signs = { priority = 9999, severity = { min = 'WARN', max = 'ERROR' } },
+    signs = {
+        priority = 9999,
+        severity = { min = 'WARN', max = 'ERROR' },
+        text = {
+            [vim.diagnostic.severity.ERROR] = icons.diagnostics.error,
+            [vim.diagnostic.severity.WARN] = icons.diagnostics.warn,
+            [vim.diagnostic.severity.INFO] = icons.diagnostics.info,
+            [vim.diagnostic.severity.HINT] = icons.diagnostics.hint,
+        },
+    },
 
     -- Show all diagnostics as underline (for their messages type `<Leader>ld`)
     underline = { severity = { min = 'HINT', max = 'ERROR' } },
 
+    virtual_lines = {
+        current_line = true,
+        severity = { min = 'ERROR', max = 'ERROR' },
+    },
+
     -- Show more details immediately for errors on the current line
-    virtual_lines = false,
     virtual_text = {
         current_line = true,
         severity = { min = 'ERROR', max = 'ERROR' },
+        prefix = function(diagnostic, _, _)
+            for d, icon in pairs(icons.diagnostics) do
+                if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+                    return icon
+                end
+            end
+            return '●'
+        end,
     },
 
     -- Don't update diagnostics when typing
