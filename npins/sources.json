@@ -35,9 +35,6 @@
       },
       "branch": "nixpkgs-unstable",
       "submodules": false,
-      "revision": "c1cb7d097cb250f6e1904aacd5f2ba5ffd8a49ce",
-      "url": "https://github.com/nixos/nixpkgs/archive/c1cb7d097cb250f6e1904aacd5f2ba5ffd8a49ce.tar.gz",
-      "hash": "1j8gnxbmjfkvpj7dvrwvzw2acxbsnx2p1xax1h5h8h0m638mmlc5"
     },
     "plugins-lze": {
       "type": "Git",
@@ -64,6 +61,19 @@
       "revision": "940083fcc3e11b7c6f6f716daa77c02ac13d5c05",
       "url": "https://github.com/BirdeeHub/lzextras/archive/940083fcc3e11b7c6f6f716daa77c02ac13d5c05.tar.gz",
       "hash": "19nh38lfjzqq77j3amrp34rxw92gzq4mz2p9ykc9q2q4hh9wq6r0"
+    },
+    "plugins-mini-nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvim-mini",
+        "repo": "mini.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "6f11e41a137590e4a5f13624a2a9a845686e719f",
+      "url": "https://github.com/nvim-mini/mini.nvim/archive/6f11e41a137590e4a5f13624a2a9a845686e719f.tar.gz",
+      "hash": "1lh5w8cj6cgmryp4yl76safm24i0l8i66ibwiy1vpnpa0pcav5qb"
     },
     "plugins-nvim-emmet": {
       "type": "Git",

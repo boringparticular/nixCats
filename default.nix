@@ -84,7 +84,7 @@ let
           pkgs.neovimPlugins.lzextras
           plenary-nvim
           vim-sleuth
-          mini-nvim
+          pkgs.neovimPlugins.mini-nvim
           nvim-nio
           snacks-nvim
         ];
