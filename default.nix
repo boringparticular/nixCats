@@ -151,7 +151,7 @@ let
         ];
 
         lisp = with pkgs.vimPlugins; [
-          conjure
+          # conjure
           parinfer-rust
         ];
 
