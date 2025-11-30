@@ -139,6 +139,13 @@ let
           zk-nvim
         ];
 
+        testing = with pkgs.vimPlugins; [
+          neotest
+          neotest-elixir
+          neotest-golang
+          neotest-python
+        ];
+
         lisp = with pkgs.vimPlugins; [
           conjure
           parinfer-rust
@@ -215,6 +222,7 @@ let
         lsp = true;
         treesitter.extra = true;
         debug = true;
+        testing = true;
         emmet = true;
         python = true;
         go = true;
