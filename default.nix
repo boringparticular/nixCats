@@ -75,6 +75,10 @@ let
         emmet = with pkgs; [
           emmet-language-server
         ];
+
+        notes = with pkgs; [
+          zk
+        ];
       };
 
       # This is for plugins that will load at startup without using packadd:
