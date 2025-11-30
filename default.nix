@@ -120,6 +120,15 @@ let
           nvim-treesitter-refactor
         ];
 
+        debug = with pkgs.vimPlugins; [
+          nvim-dap
+          nvim-dap-ui
+          nvim-dap-virtual-text
+
+          nvim-dap-go
+          nvim-dap-python
+        ];
+
         emmet = with pkgs.vimPlugins; [
           emmet-vim
           pkgs.neovimPlugins.nvim-emmet
@@ -171,8 +180,6 @@ let
       };
 
       environmentVariables = {
-        test = {
-          CATTESTVAR = "It worked!";
         };
       };
 
@@ -207,6 +214,7 @@ let
         extra = true;
         lsp = true;
         treesitter.extra = true;
+        debug = true;
         emmet = true;
         python = true;
         go = true;

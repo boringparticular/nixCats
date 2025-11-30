@@ -15,6 +15,7 @@ require('lze').load({
     { import = 'boring.plugins.flatten' },
     { import = 'boring.plugins.fyler' },
     { import = 'boring.plugins.overseer' },
+    { import = 'boring.plugins.debug' },
     { import = 'boring.plugins.zig' },
     { import = 'boring.plugins.elixir' },
     { import = 'boring.plugins.go' },
