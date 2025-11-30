@@ -54,6 +54,10 @@ let
           nixfmt-rfc-style
         ];
 
+        kotlin = with pkgs; [
+          ktlint
+        ];
+
         rust = with pkgs; [
           # NOTE: should i put this in debug?
           vscode-extensions.vadimcn.vscode-lldb
@@ -234,6 +238,7 @@ let
         flutter = true;
         zig = true;
         rust = true;
+        kotlin = true;
         markdown = true;
         notes = true;
         jujutsu = true;

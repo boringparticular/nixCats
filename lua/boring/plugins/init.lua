@@ -20,6 +20,7 @@ require('lze').load({
     { import = 'boring.plugins.zig' },
     { import = 'boring.plugins.elixir' },
     { import = 'boring.plugins.go' },
+    { import = 'boring.plugins.kotlin' },
     { import = 'boring.plugins.markdown' },
     { import = 'boring.plugins.python' },
     { import = 'boring.plugins.lisp' },
