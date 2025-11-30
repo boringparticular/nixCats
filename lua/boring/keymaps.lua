@@ -31,6 +31,7 @@ _G.Config.leader_group_clues = {
   { mode = 'n', keys = '<Leader>r', desc = '+Runner' },
   { mode = 'n', keys = '<Leader>s', desc = '+Session' },
   { mode = 'n', keys = '<Leader>t', desc = '+Terminal' },
+  { mode = 'n', keys = '<Leader>T', desc = '+Test' },
   { mode = 'n', keys = '<Leader>u', desc = '+UI' },
   { mode = 'n', keys = '<Leader>v', desc = '+Visits' },
 
