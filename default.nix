@@ -43,6 +43,7 @@ let
           rustfmt
 
           vale
+          vale-ls
           markdownlint-cli
 
           lua-language-server
