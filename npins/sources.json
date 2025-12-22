@@ -35,6 +35,9 @@
       },
       "branch": "nixpkgs-unstable",
       "submodules": false,
+      "revision": "a672be65651c80d3f592a89b3945466584a22069",
+      "url": "https://github.com/nixos/nixpkgs/archive/a672be65651c80d3f592a89b3945466584a22069.tar.gz",
+      "hash": "1p2g7g9vlpv14xz6rrlb8i6w8sxki8i35m15phjiwfrqaf6x508i"
     },
     "plugins-lze": {
       "type": "Git",
